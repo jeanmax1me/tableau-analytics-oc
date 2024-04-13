@@ -14,7 +14,7 @@ export default function Navbar() {
       </div>
       <div>
         <nav className="text-2xl flex gap-[219px] pr-[91px] font-medium">
-          <h1>Accueil</h1>
+          <a href="/"><h1>Accueil</h1></a>
           <h1>Profil</h1>
           <h1>Réglage</h1>
           <h1>Communauté</h1>

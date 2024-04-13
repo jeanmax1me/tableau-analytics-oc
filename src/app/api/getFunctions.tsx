@@ -27,4 +27,25 @@ export async function getUserActivity(userId: number): Promise<any> { // Replace
   }
 }
 
+export async function getUserAverageSessions(userId: number): Promise<any | null> {
+  try {
+    const response = await axios.get(`http://localhost:3000/user/${userId}/average-sessions`);
+    const averageSessionsData = response.data;
+    return averageSessionsData; // Return average sessions data or null for errors
+  } catch (error) {
+    console.error("Error fetching user average sessions:", error);
+    return null; // Indicate error by returning null
+  }
+}
+
+export async function getUserPerformance(userId: number): Promise<any | null> {
+  try {
+    const response = await axios.get(`http://localhost:3000/user/${userId}/performance`);
+    const performanceData = response.data;
+    return performanceData; // Return performance data or null for errors
+  } catch (error) {
+    console.error("Error fetching user performance:", error);
+    return null; // Indicate error by returning null
+  }
+}
 

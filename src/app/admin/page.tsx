@@ -1,18 +1,24 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { getUserInfo, getUserActivity, getUserAverageSessions, getUserPerformance } from "@/app/api/getFunctions"; // Assuming getFunctions.tsx is in the same directory
+import React, { useState } from "react";
+import {
+  getUserInfo,
+  getUserActivity,
+  getUserAverageSessions,
+  getUserPerformance,
+} from "@/app/api/getFunctions";
+
+interface Session {
+  day: string;
+  calories?: number;
+  kilogram?: number;
+  sessionLength?: number;
+}
 
 const MyComponent = () => {
-  interface Session {
-    day: string;
-    kilogram?: number; // Optional property
-    calories: number;
-  }
-
   const [userId, setUserId] = useState(12);
   const [userData, setUserData] = useState<any>(null);
   const [activityData, setActivityData] = useState<any>(null);
-  const [averageSessions, setUserAverageSessions] = useState<any>(null);
+  const [userAverageSessions, setUserAverageSessions] = useState<any>(null);
   const [userPerformance, setUserPerformance] = useState<any>(null);
 
   const handleGetUserInformation = async () => {
@@ -38,8 +44,6 @@ const MyComponent = () => {
     console.log(fetchedData);
     setUserPerformance(fetchedData);
   };
-
-
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -79,8 +83,7 @@ const MyComponent = () => {
           Get User Performance
         </button>
       </div>
-
-      {userData?.data?.userInfos && ( // Display user info only if data is fetched
+      {userData?.data?.userInfos && ( 
         <div>
           <div className="mt-8 rounded-md border border-gray-300 p-4">
             <h3 className="mb-2 text-lg font-medium">User Details</h3>
@@ -88,7 +91,9 @@ const MyComponent = () => {
               <li>Name: {userData?.data?.userInfos?.firstName || "—"}</li>
               <li>Last Name: {userData?.data?.userInfos?.lastName || "—"}</li>
               <li>Age: {userData?.data?.userInfos?.age || "—"}</li>
-              <li>Score: {userData?.data?.todayScore || userData?.data?.score} </li>
+              <li>
+                Score: {userData?.data?.todayScore || userData?.data?.score}{" "}
+              </li>
             </ul>
           </div>
           <div className="mt-8 rounded-md border border-gray-300 p-4">
@@ -96,22 +101,49 @@ const MyComponent = () => {
             <ul className="list-disc pl-4">
               <li>Calories: {userData?.data?.keyData?.calorieCount || "—"}</li>
               <li>Protéines: {userData?.data?.keyData?.proteinCount || "—"}</li>
-              <li>Glucides: {userData?.data?.keyData?.carbohydrateCount || "—"}</li>
+              <li>
+                Glucides: {userData?.data?.keyData?.carbohydrateCount || "—"}
+              </li>
               <li>Lipides: {userData?.data?.keyData?.lipidCount || "—"}</li>
             </ul>
           </div>
         </div>
       )}
-
-      {activityData?.data?.sessions && ( // Display activity data only if data is fetched
+      {activityData?.data?.sessions && (
         <div className="mt-8 rounded-md border border-gray-300 p-4">
           <h3 className="mb-2 text-lg font-medium">User Activity</h3>
-          {/* Activity data */}
-          {activityData?.data?.sessions?.map((session) => (
+
+          {activityData?.data?.sessions?.map((session: Session) => (
             <p key={session.day}>
-              Date: {session.day}, Calories: {session.calories}, Poids: {session.kilogram}
+              Date: {session.day}, Calories: {session.calories}, Poids:{" "}
+              {session.kilogram}
             </p>
           ))}
+        </div>
+      )}
+      {userAverageSessions?.data?.sessions && (
+        <div className="mt-8 rounded-md border border-gray-300 p-4">
+          <h3 className="mb-2 text-lg font-medium">User Average Sessions</h3>
+          {userAverageSessions?.data?.sessions?.map((session: Session) => (
+            <p key={session.day}>
+              Day: {session.day}, Session Lenght: {session.sessionLength}
+            </p>
+          ))}
+        </div>
+      )}
+      {userPerformance?.data?.data && (
+        <div>
+          <div className="mt-8 rounded-md border border-gray-300 p-4">
+            <h3 className="mb-2 text-lg font-medium">User Performance</h3>
+            <ul className="list-disc pl-4">
+              <li>cardio: {userPerformance?.data?.data[0].value}</li>
+              <li>energy: {userPerformance?.data?.data[1].value}</li>
+              <li>endurance: {userPerformance?.data?.data[2].value}</li>
+              <li>strength: {userPerformance?.data?.data[3].value}</li>
+              <li>speed: {userPerformance?.data?.data[4].value}</li>
+              <li>intensity: {userPerformance?.data?.data[5].value}</li>
+            </ul>
+          </div>
         </div>
       )}
     </div>

@@ -1,6 +1,39 @@
-import React from "react";
+"use client";
+import React, { useContext, useState, useEffect } from "react";
+import { UserContext } from "@/app/providers/UseContext"; // Import UserContext
 
 export default function Calories() {
+   const {userId} = useContext(UserContext);
+   const [calorieCount, setCalorieCount] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/user/${userId}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          setCalorieCount(data.data.keyData.calorieCount); // Access calorieCount
+        } else {
+          console.error("Error fetching calorie data:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching calorie data:", error);
+      }
+    };
+
+    fetchData();
+  }, [userId]); // Re-fetch on userId change
+
+  const formatCalorieCount = (count: number) => {
+    if (count.toString().length < 4) return count; // Don't format for less than 4 digits
+
+    // Use toLocaleString for comma separation (adjust based on locale if needed)
+    return count.toLocaleString("en-US", { minimumFractionDigits: 0 });
+  };
+
+  
+
   return (
     <div className="customshadow2 flex h-[124px]  w-[258px] items-center rounded-sm  bg-[#FBFBFB] pl-8">
       <div className="flex space-x-[24px]">
@@ -25,7 +58,7 @@ export default function Calories() {
         </svg>
         <div className="flex-row space-y-0.5">
           <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">
-            1,930kCal
+          {calorieCount !== null ? `${formatCalorieCount(calorieCount)}kCal` : "N/A"}
           </h1>
           <h2 className="text-sm font-medium text-[#74798C]">Calories</h2>
         </div>

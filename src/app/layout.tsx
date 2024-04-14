@@ -3,6 +3,8 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Head from "next/head";
 import Navbar from "./components/Navbar";
+import { UserProvider } from "./providers/UseContext";
+import "core-js/features/set"; // Import the Set polyfill
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -53,10 +55,13 @@ export default function RootLayout({
           <meta key={tag.name || tag.rel} {...tag} />
         ))}
       </Head>
-      <html lang="en">
-        <body className={roboto.className}>
-        <Navbar />
-          {children}</body>
+      <html lang="en" className="antialiased">
+        <UserProvider>
+          <body className={roboto.className}>
+            <Navbar />
+            {children}
+          </body>
+        </UserProvider>
       </html>
     </>
   );

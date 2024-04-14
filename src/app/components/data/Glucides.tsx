@@ -1,8 +1,32 @@
-import React from "react";
+"use client";
+import React, { useContext, useState, useEffect } from "react";
+import { UserContext } from "@/app/providers/UseContext"; // Import UserContext
 
 export default function Glucides() {
+  const { userId } = useContext(UserContext);
+  const [glucideCount, setGlucideCount] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/user/${userId}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          setGlucideCount(data.data.keyData.carbohydrateCount);
+        } else {
+          console.error("Error fetching calorie data:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching calorie data:", error);
+      }
+    };
+
+    fetchData();
+  }, [userId]); // Re-fetch on userId change
+
   return (
-    <div className="customshadow2 h-[124px] w-[258px] flex items-center pl-8 rounded-sm bg-[#FBFBFB]">
+    <div className="customshadow2 flex h-[124px] w-[258px] items-center rounded-sm bg-[#FBFBFB] pl-8">
       <div className="flex space-x-[24px]">
         <svg
           width="60"
@@ -33,7 +57,7 @@ export default function Glucides() {
         </svg>
 
         <div className="flex-row space-y-0.5">
-          <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">290g</h1>
+          <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">{glucideCount}g</h1>
           <h2 className="text-sm font-medium text-[#74798C]">Glucides</h2>
         </div>
       </div>

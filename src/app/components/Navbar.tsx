@@ -1,5 +1,5 @@
-import React from "react";
 import Image from "next/image";
+import ProfilMenu from "./ProfilMenu";
 
 export default function Navbar() {
   return (
@@ -13,9 +13,11 @@ export default function Navbar() {
         />
       </div>
       <div>
-        <nav className="text-2xl flex gap-[219px] pr-[91px] font-medium">
-          <a href="/"><h1>Accueil</h1></a>
-          <h1>Profil</h1>
+        <nav className="flex gap-[219px] pr-[91px] text-2xl font-medium">
+          <a href="/">
+            <h1>Accueil</h1>
+          </a>
+          <ProfilMenu />
           <h1>Réglage</h1>
           <h1>Communauté</h1>
         </nav>

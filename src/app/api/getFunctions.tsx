@@ -1,11 +1,7 @@
 import axios from "axios";
 
-// Interface for User Data (optional, for type safety)
-interface UserData {
-  // Define user data properties (e.g., name, age, etc.)
-}
 
-export async function getUserInfo(userId: number): Promise<UserData | null> { // Use Promise for potential errors
+export async function getUserInfo(userId: number): Promise<any> { // Use Promise for potential errors
   try {
     const response = await axios.get(`http://localhost:3000/user/${userId}`);
     const userData = response.data;
@@ -27,7 +23,7 @@ export async function getUserActivity(userId: number): Promise<any> { // Replace
   }
 }
 
-export async function getUserAverageSessions(userId: number): Promise<any | null> {
+export async function getUserAverageSessions(userId: number): Promise<any> {
   try {
     const response = await axios.get(`http://localhost:3000/user/${userId}/average-sessions`);
     const averageSessionsData = response.data;
@@ -38,7 +34,7 @@ export async function getUserAverageSessions(userId: number): Promise<any | null
   }
 }
 
-export async function getUserPerformance(userId: number): Promise<any | null> {
+export async function getUserPerformance(userId: number): Promise<any> {
   try {
     const response = await axios.get(`http://localhost:3000/user/${userId}/performance`);
     const performanceData = response.data;

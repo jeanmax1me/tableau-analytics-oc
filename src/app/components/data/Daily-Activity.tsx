@@ -39,7 +39,7 @@ export default function DailyActivity() {
   }
 
   return (
-    <div className="relative h-[320px] w-[835px] rounded-sm bg-[#FBFBFB]">
+    <div className="relative h-[320px] w-[835px] rounded-md bg-[#FBFBFB]">
       <h3 className="absolute mt-1 pl-8">Activité Quotidienne</h3>
       {chartData.length > 0 && (
         <BarChart

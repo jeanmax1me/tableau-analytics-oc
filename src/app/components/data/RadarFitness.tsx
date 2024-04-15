@@ -62,7 +62,7 @@ const { userId } = useContext(UserContext);
   return (
     <div className="h-[263px] w-[258px] bg-[#FBFBFB] customshadow2 rounded-sm;
     ">
-        <ResponsiveContainer width="100%" height="100%" className="border bg-[#282D30]" >
+        <ResponsiveContainer width="100%" height="100%" className="bg-[#282D30] rounded-md" >
           <RadarChart innerRadius="0" outerRadius="63%" data={newData} >
             <PolarGrid />
             <PolarAngleAxis dataKey="kind" className="text-[11px] text-white" stroke="white" tickLine={false}/>

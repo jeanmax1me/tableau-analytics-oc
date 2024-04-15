@@ -59,7 +59,7 @@ export default function SessionsLenght() {
     );
   };
   return (
-    <div className="h-[263px] w-[258px] bg-red-500 relative">
+    <div className="h-[263px] w-[258px] bg-red-500 relative rounded-md">
       <h3 className="text-sm font-medium absolute text-zinc-50 pt-3 pl-10">
       Durée moyenne des sessions
       </h3>

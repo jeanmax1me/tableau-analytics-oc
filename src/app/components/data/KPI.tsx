@@ -27,7 +27,7 @@ export default function Radar() {
   
    
   return (
-    <div className="h-[263px] w-[258px] space-y-10 bg-[#FBFBFB]">
+    <div className="h-[263px] w-[258px] space-y-10 bg-[#FBFBFB] rounded-md">
       <div className="space-y-3">
         <p className="text-sm text-[#20253A] translate-y-3 pl-6">Score</p>
         <Card className="mx-auto h-[263px] w-[258px]">

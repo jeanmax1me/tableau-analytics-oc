@@ -17,14 +17,14 @@ const config: Config = {
         tremor: {
           brand: {
             faint: colors.blue[50],
-            muted: colors.blue[200],
+            muted: colors.white,
             subtle: colors.blue[400],
             DEFAULT: colors.blue[500],
             emphasis: colors.blue[700],
             inverted: colors.white,
           },
           background: {
-            muted: colors.gray[50],
+            muted: colors.white,
             subtle: colors.gray[100],
             DEFAULT: colors.white,
             emphasis: colors.gray[700],
@@ -47,23 +47,23 @@ const config: Config = {
         "dark-tremor": {
           brand: {
             faint: "#0B1229",
-            muted: colors.blue[950],
+            muted: colors.white,
             subtle: colors.blue[800],
             DEFAULT: colors.blue[500],
             emphasis: colors.blue[400],
             inverted: colors.blue[950],
           },
           background: {
-            muted: "#131A2B",
+            muted: colors.white,
             subtle: colors.gray[800],
-            DEFAULT: colors.gray[900],
+            DEFAULT: "#FBFBFB",
             emphasis: colors.gray[300],
           },
           border: {
-            DEFAULT: colors.gray[800],
+            DEFAULT: colors.white,
           },
           ring: {
-            DEFAULT: colors.gray[800],
+            DEFAULT: colors.white,
           },
           content: {
             subtle: colors.gray[600],

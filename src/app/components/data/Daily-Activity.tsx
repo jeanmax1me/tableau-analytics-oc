@@ -2,7 +2,14 @@
 import { BarChart } from "@tremor/react";
 import { getUserActivity } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/app/providers/UseContext"; // Import UserContext
+import { UserContext } from "@/app/providers/UseContext"; 
+
+interface Session {
+  day: string; 
+  kilogram: number; 
+  calories: number; 
+
+}
 
 export default function DailyActivity() {
   const { userId } = useContext(UserContext);
@@ -21,29 +28,26 @@ export default function DailyActivity() {
     fetchUserActivity();
   }, [userId]);
 
+
   // Define variables to hold chart data
   let chartData: { day: string; kilogram: number; calories: number }[] = [];
-  let customLabels: { [key: string]: string } = {
-    kilogram: "Poids (kg)",
-    calories: "Calories brûlées",
-  };
   // Extract data if activityData is available
   if (activityData) {
-    chartData = activityData.data.sessions.map((session) => ({
+    chartData = activityData.data.sessions.map((session: Session) => ({
       day: session.day,
-      kilogram: session.kilogram,
-      calories: session.calories,
+      Poids: session.kilogram,
+      Calories: session.calories,
     }));
   }
 
   return (
-    <div className="h-[320px] w-[835px] border relative">
+    <div className="h-[320px] w-[835px] bg-[#FBFBFB] rounded-sm relative">
       <h3 className="pl-8 mt-1 absolute">Activité Quotidienne</h3>
       {chartData.length > 0 && (
         <BarChart
           data={chartData}
           index="day"
-          categories={["kilogram", "calories"]}
+          categories={["Poids", "Calories"]}
           colors={["zinc-800", "red-500"]}
           yAxisWidth={30}
         />

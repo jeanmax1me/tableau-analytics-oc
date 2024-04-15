@@ -2,7 +2,7 @@
 import { useState, useContext, useEffect } from "react";
 import DailyActivity from "./data/Daily-Activity";
 import SessionsLenght from "./data/Sessions-Lenght";
-import Radar from "./data/Radar";
+import Radar from "./data/RadarFitness";
 import KPI from "./data/KPI";
 import Calories from "./data/Calories";
 import Proteines from "./data/Proteines";
@@ -15,6 +15,7 @@ import {
   getUserPerformance,
 } from "@/app/api/getFunctions";
 import { UserContext } from "../providers/UseContext";
+import RadarFitness from "./data/RadarFitness";
 
 export default function MainContent() {
   const { userId, setUserId, handleProfileChange } = useContext(UserContext);
@@ -52,7 +53,7 @@ export default function MainContent() {
           <DailyActivity />
           <div className="flex space-x-[30px]">
             <SessionsLenght />
-            <Radar />
+            <RadarFitness />
             <KPI />
           </div>
         </div>

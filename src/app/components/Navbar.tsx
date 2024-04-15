@@ -18,7 +18,7 @@ export default function Navbar() {
             <h1>Accueil</h1>
           </a>
           <ProfilMenu />
-          <h1>Réglage</h1>
+          <h1>Réglages</h1>
           <h1>Communauté</h1>
         </nav>
       </div>

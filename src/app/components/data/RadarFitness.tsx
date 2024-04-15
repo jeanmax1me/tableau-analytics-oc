@@ -1,4 +1,4 @@
-import React from "react";
+"'use client";
 import {
   Radar,
   RadarChart,
@@ -6,62 +6,72 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
+import { getUserPerformance } from "@/app/api/getFunctions";
+import React, { useContext, useState, useEffect } from "react";
+import { UserContext } from "@/app/providers/UseContext"; 
 
-const data = [
-  {
-    subject: "Math",
-    A: 120,
-    B: 110,
-    fullMark: 150,
-  },
-  {
-    subject: "Chinese",
-    A: 98,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: "English",
-    A: 86,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: "Geography",
-    A: 99,
-    B: 100,
-    fullMark: 150,
-  },
-  {
-    subject: "Physics",
-    A: 85,
-    B: 90,
-    fullMark: 150,
-  },
-  {
-    subject: "History",
-    A: 65,
-    B: 85,
-    fullMark: 150,
-  },
-];
+interface Session {
+  value: number;
+  kind: number
+}
+
+type KindMap = {
+  [key: number]: string; 
+};
 
 export default function RadarFitness() {
+const { userId } = useContext(UserContext);
+  const [userPerformance, setUserPerformance] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUserPerformance = async () => {
+      try {
+        const data = await getUserPerformance(userId);
+        setUserPerformance(data);
+      } catch (error) {
+        console.error("Error fetching user performance:", error);
+      }
+    };
+    fetchUserPerformance();
+  }, [userId]);
+
+
+
+    let chartData: { value: number; kind: number }[] = [];
+    // Extract data if activityData is available
+    if (userPerformance) {
+      chartData = userPerformance.data.data.map((session: Session) => ({
+        value: session.value,
+        kind: session.kind
+      }));
+    }
+
+    const kindMap: KindMap = {
+      1: "cardio",
+      2: "energy",
+      3: "endurance",
+      4: "strength",
+      5: "speed",
+      6: "intensity",
+    };
+
+    const newData = chartData.map(({ value, kind }) => ({ value, kind: kindMap[kind] }));
+    console.log(newData);    
+
   return (
-    <div className="grid h-[263px] w-[258px] place-items-center space-y-10 bg-[#FBFBFB]">
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+    <div className="h-[263px] w-[258px] bg-[#FBFBFB] customshadow2 rounded-sm;
+    ">
+        <ResponsiveContainer width="100%" height="100%" className="border bg-[#282D30]" >
+          <RadarChart innerRadius="0" outerRadius="63%" data={newData} >
             <PolarGrid />
-            <PolarAngleAxis dataKey="subject" />
-            <PolarRadiusAxis />
+            <PolarAngleAxis dataKey="kind" className="text-[11px] text-white" stroke="white" tickLine={false}/>
+            <PolarRadiusAxis tick={false} axisLine={false} />
             <Radar
-              name="Mike"
-              dataKey="A"
-              stroke="#8884d8"
-              fill="#8884d8"
-              fillOpacity={0.6}
+              dataKey="value"
+              fill="#EF4444"
+              fillOpacity={0.8}
+              stroke="#EF4444"
             />
           </RadarChart>
         </ResponsiveContainer>

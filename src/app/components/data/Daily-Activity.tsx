@@ -2,13 +2,12 @@
 import { BarChart } from "@tremor/react";
 import { getUserActivity } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/app/providers/UseContext"; 
+import { UserContext } from "@/app/providers/UseContext";
 
 interface Session {
-  day: string; 
-  kilogram: number; 
-  calories: number; 
-
+  day: string;
+  kilogram: number;
+  calories: number;
 }
 
 export default function DailyActivity() {
@@ -28,7 +27,6 @@ export default function DailyActivity() {
     fetchUserActivity();
   }, [userId]);
 
-
   // Define variables to hold chart data
   let chartData: { day: string; kilogram: number; calories: number }[] = [];
   // Extract data if activityData is available
@@ -41,8 +39,8 @@ export default function DailyActivity() {
   }
 
   return (
-    <div className="h-[320px] w-[835px] bg-[#FBFBFB] rounded-sm relative">
-      <h3 className="pl-8 mt-1 absolute">Activité Quotidienne</h3>
+    <div className="relative h-[320px] w-[835px] rounded-sm bg-[#FBFBFB]">
+      <h3 className="absolute mt-1 pl-8">Activité Quotidienne</h3>
       {chartData.length > 0 && (
         <BarChart
           data={chartData}

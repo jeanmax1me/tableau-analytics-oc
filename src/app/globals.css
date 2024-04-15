@@ -10,3 +10,6 @@
 box-shadow: 0px 2px 4px 0px #00000005;
 }
 
+.textblanco {
+    fill: white !important; /* Override fill color for light mode */
+  }

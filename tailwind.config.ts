@@ -13,7 +13,7 @@ const config: Config = {
     current: "currentColor",
     extend: {
       colors: {
-        // light mode
+        invertedText: '#fff',
         tremor: {
           brand: {
             faint: colors.blue[50],
@@ -70,7 +70,7 @@ const config: Config = {
             DEFAULT: colors.gray[500],
             emphasis: colors.gray[200],
             strong: colors.gray[50],
-            inverted: colors.gray[950],
+            inverted: colors.white,
           },
         },
       },

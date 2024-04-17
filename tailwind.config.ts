@@ -11,13 +11,18 @@ const config: Config = {
   theme: {
     transparent: "transparent",
     current: "currentColor",
+    screens: {
+      'sm': '576px',
+      'md': '960px',
+      'lg': '1440px',
+    },
     extend: {
       colors: {
         invertedText: '#fff',
         tremor: {
           brand: {
             faint: colors.blue[50],
-            muted: colors.white,
+            muted: colors.transparent,
             subtle: colors.blue[400],
             DEFAULT: colors.blue[500],
             emphasis: colors.blue[700],
@@ -47,7 +52,7 @@ const config: Config = {
         "dark-tremor": {
           brand: {
             faint: "#0B1229",
-            muted: colors.white,
+            muted: colors.transparent,
             subtle: colors.blue[800],
             DEFAULT: colors.blue[500],
             emphasis: colors.blue[400],

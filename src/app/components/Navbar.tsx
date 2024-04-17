@@ -13,7 +13,7 @@ export default function Navbar() {
         />
       </div>
       <div>
-        <nav className="flex gap-[219px] pr-[91px] text-2xl font-medium">
+        <nav className="flex lg:gap-[219px] pr-[91px] text-2xl font-medium gap-[50px]">
           <a href="/">
             <h1>Accueil</h1>
           </a>

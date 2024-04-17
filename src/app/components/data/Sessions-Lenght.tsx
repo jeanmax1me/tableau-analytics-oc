@@ -74,6 +74,7 @@ export default function SessionsLenght() {
         showLegend={false}
         showGridLines={false}
         maxValue={80}
+        showYAxis={false}
           />
     </div>
   );

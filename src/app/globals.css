@@ -7,9 +7,25 @@
 }
 
 .customshadow2 {
-box-shadow: 0px 2px 4px 0px #00000005;
+    box-shadow: 0px 2px 4px 0px #00000005;
 }
 
-.textblanco {
-    fill: white !important; /* Override fill color for light mode */
-  }
+@media screen and (max-width: 1439px) {
+    .verticalgap {
+        @apply pt-8;
+        @apply grid;
+        @apply w-full;
+        @apply space-y-4;
+        @apply items-center;
+        @apply justify-center;
+    }
+}
+
+
+@media screen and (max-width: 1439px) {
+    .respgap {
+        @apply pt-8;
+        @apply grid;
+        @apply place-items-center;
+    }
+}

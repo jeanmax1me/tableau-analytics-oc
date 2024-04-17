@@ -40,7 +40,15 @@ export default function DailyActivity() {
 
   return (
     <div className="relative h-[320px] w-[835px] rounded-md bg-[#FBFBFB]">
-      <h3 className="absolute mt-1 pl-8">Activité Quotidienne</h3>
+      <div className="inline-flex w-full justify-between px-4">
+        <h3 className="mt-3 pl-14 font-medium">Activité Quotidienne</h3>
+        <div className="mt-3 inline-flex items-center">
+          <div className="mr-[7px] h-2 w-2 rounded-full bg-[#282D30]"></div>
+          <span className="pr-8">Poids (kg)</span>
+          <div className="mr-2 h-2 w-2 rounded-full bg-[#E60000]"></div>{" "}
+          <span>Calories brûlées (kCal)</span>
+        </div>
+      </div>
       {chartData.length > 0 && (
         <BarChart
           data={chartData}
@@ -48,6 +56,8 @@ export default function DailyActivity() {
           categories={["Poids", "Calories"]}
           colors={["zinc-800", "red-500"]}
           yAxisWidth={30}
+          showLegend={false}
+          className="pb-8"
         />
       )}
     </div>

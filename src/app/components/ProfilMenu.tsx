@@ -25,7 +25,8 @@ const ProfilMenu = () => {
       </h1>
       <ul
         className={`absolute left-1/2 top-full -translate-x-1/2 overflow-hidden rounded-md shadow-md transition duration-200 ease-in-out ${
-          isOpen ? "block bg-zinc-800/80" : "hidden bg-transparent"
+          isOpen ? "block bg-[#282D30]/90"
+             : "hidden bg-transparent"
         }`}
         style={{ width: "300px" }} // Set width using inline style
         onMouseEnter={handleOpenMenu}

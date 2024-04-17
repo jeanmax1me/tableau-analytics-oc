@@ -29,10 +29,10 @@ export default function Radar() {
   return (
     <div className="h-[263px] w-[258px] space-y-10 bg-[#FBFBFB] rounded-md">
       <div className="space-y-3">
-        <p className="text-sm text-[#20253A] translate-y-3 pl-6">Score</p>
+        <p className="text-sm text-[#20253A] translate-y-3 pl-6 font-medium">Score</p>
         <Card className="mx-auto h-[263px] w-[258px]">
           <div>
-            <ProgressCircle value={12} size="xl" color="red">
+            <ProgressCircle value={scorePercent} size="xl" color="red">
               <div className="grid h-[74px] place-items-center">
                 <span className="text-center text-[26px] font-bold text-[#282D30]">
                   {scorePercent}%

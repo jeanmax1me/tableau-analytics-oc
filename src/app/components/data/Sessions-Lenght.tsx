@@ -1,12 +1,23 @@
-import { LineChart } from "@tremor/react";
+import {
+  LineChart,
+  Line,
+  Tooltip,
+  XAxis,
+  ResponsiveContainer,
+  YAxis,
+  Rectangle,
+} from "recharts";
 import { getUserAverageSessions } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/app/providers/UseContext"; 
-import { white } from "tailwindcss/colors";
+import { UserContext } from "@/app/providers/UseContext";
 
 interface Session {
-  day: number; 
-  sessionLength: number; 
+  day: number;
+  sessionLength: number;
+}
+
+interface CustomTooltipProps {
+  payload?: any;
 }
 
 export default function SessionsLenght() {
@@ -25,57 +36,87 @@ export default function SessionsLenght() {
     fetchUserAverageSessions();
   }, [userId]);
 
-  
-    // Define variables to hold chart data
-    let chartData: { day: number; sessionLenght: number }[] = [];
-    // Extract data if activityData is available
-    if (averageSessions) {
-      chartData = averageSessions.data.sessions.map((session: Session) => ({
-        day: session.day,
-        sessionLength: session.sessionLength
-      }));
-    }
+  let chartData: { day: number; sessionLength: number }[] = [];
+  if (averageSessions) {
+    chartData = averageSessions.data.sessions.map((session: Session) => ({
+      day: session.day,
+      sessionLength: session.sessionLength,
+    }));
+  }
 
-
-    const customTooltip = (props: { payload: any; active: any; }) => {
-    const { payload, active } = props;
-    if (!active || !payload) return null;
+  const CustomCursor = (props: any) => {
+    const { points, width, height } = props;
+    const { x, y } = points[0];
+    const left = x - width;
     return (
-      <div className="w-48 rounded-tremor-default border border-tremor-border bg-tremor-background p-2 text-tremor-default shadow-tremor-dropdown">
+      <Rectangle
+        x={left}
+        y={y}
+        width={width}
+        height={height + 10}
+        stroke="transparent" 
+        fill="black" 
+        fillOpacity="0.18" 
+      />
+    );
+  };
+
+  const CustomTooltip: React.FC<CustomTooltipProps> = ({ payload }) => {
+    if (!payload) return null;
+    return (
+      <div className="h-[34px] w-[50px] p-0">
         {payload.map((category: any, idx: React.Key | null | undefined) => (
-          <div key={idx} className="flex flex-1 space-x-2.5">
-            <div
-              className={`flex w-1 flex-col bg-${category.color}-500 rounded`}
-            />
-            <div className="space-y-1">
-              <p className="text-tremor-content">Durée de la session</p>
-              <p className="font-medium text-tremor-content-emphasis">
-                {category.value} min
-              </p>
-            </div>
+          <div key={idx} className="flex">
+            <p className="bg-white p-2 text-center text-[10px] font-medium">
+              {category.value} min
+            </p>
           </div>
         ))}
       </div>
     );
   };
   return (
-    <div className="h-[263px] w-[258px] bg-red-500 relative rounded-md">
-      <h3 className="text-sm font-medium absolute text-zinc-50 pt-3 pl-10">
-      Durée moyenne des sessions
+    <div className="customshadow2 relative h-[263px] w-[258px] rounded-md bg-red-500">
+      <h3
+        className="absolute pl-[34px] pt-[29px] text-[15px] font-medium leading-6 text-white
+"
+      >
+        Durée moyenne des <br /> sessions
       </h3>
-      <LineChart
-        className="h-[263px] w-[258px] pt-8 text-tremor-brand-faint"
-        data={chartData}
-        index="day"
-        categories={["sessionLength"]}
-        colors={["zinc-50"]}
-        yAxisWidth={30}
-        customTooltip={customTooltip}
-        showLegend={false}
-        showGridLines={false}
-        maxValue={80}
-        showYAxis={false}
+      <div className="absolute bottom-4 left-[14px] flex w-[229px] justify-between text-[12px] uppercase text-white opacity-50">
+        <p>L</p>
+        <p>M</p>
+        <p>M</p>
+        <p>J</p>
+        <p>V</p>
+        <p>S</p>
+        <p>D</p>
+      </div>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={chartData} >
+          <Line
+            type="monotone"
+            dataKey="sessionLength"
+            stroke="white"
+            strokeWidth={2}
+            dot={false}
           />
+          <XAxis
+            dataKey="day"
+            axisLine={false}
+            tick={{ fill: "white" }}
+            tickLine={false}
+            hide={true}
+          />
+          <YAxis domain={["dataMin - 20", "dataMax + 45"]} hide={true} />
+
+          <Tooltip
+            content={<CustomTooltip />}
+            offset={30}
+            cursor={<CustomCursor />}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </div>
   );
 }

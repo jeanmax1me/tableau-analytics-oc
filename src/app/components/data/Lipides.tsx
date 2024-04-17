@@ -23,7 +23,7 @@ export default function Lipides() {
     };
 
     fetchData();
-  }, [userId]); // Re-fetch on userId change
+  }, [userId]); 
 
 
   return (

@@ -31,9 +31,7 @@ export default function DailyActivity() {
     fetchUserActivity();
   }, [userId]);
 
-  // Define variables to hold chart data
   let chartData: { day: string; kilogram: number; calories: number }[] = [];
-  // Extract data if activityData is available
   if (activityData) {
     chartData = activityData.data.sessions.map((session: Session) => ({
       day: session.day,

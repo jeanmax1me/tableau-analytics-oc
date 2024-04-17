@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/app/providers/UseContext"; // Import UserContext
+import { UserContext } from "@/app/providers/UseContext"; 
 
 export default function Proteines() {
   const { userId } = useContext(UserContext);
@@ -23,7 +23,7 @@ export default function Proteines() {
     };
 
     fetchData();
-  }, [userId]); // Re-fetch on userId change
+  }, [userId]);
 
 
   return (

@@ -39,7 +39,6 @@ const { userId } = useContext(UserContext);
 
 
     let chartData: { value: number; kind: number }[] = [];
-    // Extract data if activityData is available
     if (userPerformance) {
       chartData = userPerformance.data.data.map((session: Session) => ({
         value: session.value,
@@ -62,8 +61,6 @@ const { userId } = useContext(UserContext);
     const sortedData = desiredOrder.map((kind) =>
       newData.filter((obj) => obj.kind === kind)[0]
     );
-
-    console.log(sortedData);
 
 
   return (

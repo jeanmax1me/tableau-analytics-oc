@@ -2,7 +2,7 @@
 import { getUserInfo } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
-import { Card, ProgressCircle } from "@tremor/react";
+import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 
 export default function Radar() {
   const { userId } = useContext(UserContext);
@@ -22,60 +22,44 @@ export default function Radar() {
   }, [userId]);
 
   const score = userData?.data?.todayScore || userData?.data?.score;
-  const scorePercent = score * 100;
+  const scorePercent = [
+    { name: "score", value: score * 100 },
+    { name: "remaining", value: 100 - score },
+  ];
 
-  /*
+  const COLORS = ["#E60000", "#FBFBFB"];
+
   return (
-    <div className="h-[263px] w-[258px] space-y-10 rounded-md bg-[#FBFBFB] relative">
-      <div className="space-y-3 relative">
-        <p className="translate-y-3 pl-6 text-sm font-medium text-[#20253A]">
-          Score
-        </p>
-        <div className="absolute grid h-[74px] place-items-center top-1/4 left-[40%]">
-          <span className="text-center text-[26px] font-bold text-[#282D30]">
-            {scorePercent}%
-          </span>
-          <span className="text-center text-base font-medium text-[#78798C]">
-            de votre <br /> objectif
-          </span>
-        </div>
-        <svg viewBox="0 0 100 100" className="h-full w-full">
-          <circle
-            cx="50"
-            cy="50"
-            r="35"
-            fill="transparent"
-            stroke="#FF0000"
-            stroke-width="4"
-            stroke-linecap="round"
-            stroke-dasharray={2 * Math.PI * 35} // Full circle circumference
-            stroke-dashoffset={2 * Math.PI * 35 * (1 - scorePercent / 100)} // Unfilled portion based on progress
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
-*/
-  return (
-    <div className="relative h-[263px] w-[258px] space-y-10 rounded-md bg-[#FBFBFB]">
-      <p className="absolute left-[30px] top-[24px] text-[15px] font-medium text-[#20253A] z-10">
+    <div className="relative h-[263px] w-[258px] rounded-md bg-[#FBFBFB]">
+      <p className="absolute left-[30px] top-[24px] z-10 text-[15px] font-medium text-[#20253A]">
         Score
       </p>
-      <Card className="mx-auto h-[263px] w-[258px]">
-        <div>
-          <ProgressCircle value={scorePercent} size="xl" color="red">
-            <div className="grid h-[74px] place-items-center">
-              <span className="text-center text-[26px] font-bold text-[#282D30]">
-                {scorePercent}%
-              </span>
-              <span className="text-center text-base font-medium text-[#78798C]">
-                de votre <br /> objectif
-              </span>
-            </div>
-          </ProgressCircle>
-        </div>
-      </Card>
+      <div className="absolute left-[41%] top-[33%] z-10 grid h-[74px] place-items-center">
+        <span className="text-center text-[26px] font-bold text-[#282D30]">
+          {scorePercent[0].value}%
+        </span>
+        <span className="text-center text-base font-medium text-[#78798C]">
+          de votre <br /> objectif
+        </span>
+      </div>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            dataKey="value"
+            data={scorePercent}
+            innerRadius={72}
+            outerRadius={84}
+            startAngle={90}
+            endAngle={480}
+            width={200}
+            height={200}
+          >
+            {scorePercent.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 }

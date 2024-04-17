@@ -1,7 +1,6 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/app/providers/UseContext"; // Import UserContext
-
+import { UserContext } from "@/app/providers/UseContext";
 export default function Glucides() {
   const { userId } = useContext(UserContext);
   const [glucideCount, setGlucideCount] = useState(null);
@@ -23,7 +22,7 @@ export default function Glucides() {
     };
 
     fetchData();
-  }, [userId]); // Re-fetch on userId change
+  }, [userId]); 
 
   return (
     <div className="customshadow2 flex h-[124px] w-[258px] items-center rounded-sm bg-[#FBFBFB] pl-8">

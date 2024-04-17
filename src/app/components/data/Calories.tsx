@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/app/providers/UseContext"; // Import UserContext
+import { UserContext } from "@/app/providers/UseContext";
 
 export default function Calories() {
    const {userId} = useContext(UserContext);
@@ -13,7 +13,7 @@ export default function Calories() {
         const data = await response.json();
 
         if (response.ok) {
-          setCalorieCount(data.data.keyData.calorieCount); // Access calorieCount
+          setCalorieCount(data.data.keyData.calorieCount);
         } else {
           console.error("Error fetching calorie data:", data);
         }
@@ -23,12 +23,11 @@ export default function Calories() {
     };
 
     fetchData();
-  }, [userId]); // Re-fetch on userId change
+  }, [userId]); 
 
   const formatCalorieCount = (count: number) => {
-    if (count.toString().length < 4) return count; // Don't format for less than 4 digits
+    if (count.toString().length < 4) return count; 
 
-    // Use toLocaleString for comma separation (adjust based on locale if needed)
     return count.toLocaleString("en-US", { minimumFractionDigits: 0 });
   };
 

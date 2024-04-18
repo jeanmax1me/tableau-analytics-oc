@@ -1,30 +1,24 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/app/providers/UseContext"; // Import UserContext
+import { UserContext } from "@/app/providers/UseContext"; 
+import { fetchLipidesCount } from "@/app/api/getFunctions";
 
 export default function Lipides() {
   const { userId } = useContext(UserContext);
-  const [lipideCount, setLipideCount] = useState(null);
+  const [lipideCount, setLipideCount] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/user/${userId}`);
-        const data = await response.json();
-
-        if (response.ok) {
-          setLipideCount(data.data.keyData.lipidCount);
-        } else {
-          console.error("Error fetching calorie data:", data);
-        }
+        const data = await fetchLipidesCount(userId);
+        setLipideCount(data);
       } catch (error) {
-        console.error("Error fetching calorie data:", error);
+        console.error(error);
       }
     };
 
     fetchData();
-  }, [userId]); 
-
+  }, [userId]);
 
   return (
     <div className="customshadow2 flex h-[124px]  w-[258px] items-center rounded-sm  bg-[#FBFBFB] pl-8">
@@ -58,7 +52,9 @@ export default function Lipides() {
         </svg>
 
         <div className="flex-row space-y-0.5">
-          <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">{lipideCount}g</h1>
+          <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">
+            {lipideCount}g
+          </h1>
           <h2 className="text-sm font-medium text-[#74798C]">Lipides</h2>
         </div>
       </div>

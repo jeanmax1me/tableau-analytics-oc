@@ -1,30 +1,24 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "@/app/providers/UseContext"; 
+import { UserContext } from "@/app/providers/UseContext";
+import { fetchProteinesCount } from "@/app/api/getFunctions";
 
 export default function Proteines() {
   const { userId } = useContext(UserContext);
-  const [proteineCount, setProteineCount] = useState(null);
+  const [proteineCount, setProteineCount] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/user/${userId}`);
-        const data = await response.json();
-
-        if (response.ok) {
-          setProteineCount(data.data.keyData.proteinCount);
-        } else {
-          console.error("Error fetching calorie data:", data);
-        }
+        const data = await fetchProteinesCount(userId);
+        setProteineCount(data);
       } catch (error) {
-        console.error("Error fetching calorie data:", error);
+        console.error(error);
       }
     };
 
     fetchData();
   }, [userId]);
-
 
   return (
     <div className="customshadow2 flex h-[124px]  w-[258px] items-center rounded-sm  bg-[#FBFBFB] pl-8">

@@ -51,7 +51,7 @@ export default function SessionsLenght() {
     return (
       <Rectangle
         x={left}
-        y={y}
+        y={y-5}
         width={width}
         height={height + 10}
         stroke="transparent" 

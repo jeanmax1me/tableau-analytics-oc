@@ -1,24 +1,19 @@
 "use client";
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
+import { fetchCaloriesCount } from "@/app/api/getFunctions";
 
 export default function Calories() {
    const {userId} = useContext(UserContext);
-   const [calorieCount, setCalorieCount] = useState(null);
+   const [calorieCount, setCalorieCount] =  useState<number | null>(null);
 
-  useEffect(() => {
+   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/user/${userId}`);
-        const data = await response.json();
-
-        if (response.ok) {
-          setCalorieCount(data.data.keyData.calorieCount);
-        } else {
-          console.error("Error fetching calorie data:", data);
-        }
+        const data = await fetchCaloriesCount(userId);
+        setCalorieCount(data);
       } catch (error) {
-        console.error("Error fetching calorie data:", error);
+        console.error(error);
       }
     };
 

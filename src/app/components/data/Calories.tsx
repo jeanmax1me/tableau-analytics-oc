@@ -23,6 +23,8 @@ export default function Calories() {
         setCalorieCount(data);
       } catch (error) {
         console.error(error);
+          // Set CalorieCount to null in case of error or non-existent user
+          setCalorieCount(null);
       }
     };
 

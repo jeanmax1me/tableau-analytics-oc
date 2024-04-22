@@ -22,6 +22,8 @@ export default function Lipides() {
         setLipideCount(data);
       } catch (error) {
         console.error(error);
+          // Set LipidesCount to null in case of error or non-existent user
+          setLipideCount(null);
       }
     };
 

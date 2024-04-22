@@ -22,6 +22,8 @@ export default function Proteines() {
         setProteineCount(data);
       } catch (error) {
         console.error(error);
+           // Set ProteineCount to null in case of error or non-existent user
+           setProteineCount(null);
       }
     };
 

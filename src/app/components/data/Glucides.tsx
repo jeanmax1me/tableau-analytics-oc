@@ -23,6 +23,8 @@ export default function Glucides() {
         setGlucideCount(data);
       } catch (error) {
         console.error(error);
+         // Set glucideCount to null in case of error or non-existent user
+         setGlucideCount(null);
       }
     };
 

@@ -21,7 +21,6 @@ const Index = () => {
     setUserId(userIdNumber);
   }, [userIdNumber, setUserId]); // Dependency array ensures effect runs on ID change (if present)
 
-  console.log(userId);
 
   return <Home />;
 };

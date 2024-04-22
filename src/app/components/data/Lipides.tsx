@@ -66,7 +66,7 @@ export default function Lipides() {
 
         <div className="flex-row space-y-0.5">
           <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">
-            {lipideCount}g
+          {lipideCount !== null ? lipideCount + "g" : "N/A"}
           </h1>
           <h2 className="text-sm font-medium text-[#74798C]">Lipides</h2>
         </div>

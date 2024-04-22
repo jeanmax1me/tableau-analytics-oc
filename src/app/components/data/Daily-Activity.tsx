@@ -9,6 +9,7 @@ import { getUserActivity } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import { DataFormatter } from "@/app/dataFormatter/dataFormatter";
 // Interface for a session data point
 interface Session {
   day: string;
@@ -43,23 +44,9 @@ export default function DailyActivity() {
     fetchUserActivity();
   }, [userId]);
 
-   // Prepare chart data by extracting day, weight, and calories from sessions
-  let chartData: { day: string; kilogram: number; calories: number }[] = [];
-  let formattedData: { day: string; kilogram: number; calories: number }[] = [];
-  if (activityData) {
-    chartData = activityData.data.sessions.map((session: Session) => ({
-      day: session.day,
-      Poids: session.kilogram,
-      Calories: session.calories,
-    }));
-    formattedData = chartData.map((data) => ({
-      ...data,
-      day: data.day.substr(9),  // Format the date string (assuming format YYYY-MM-DD)
-    }));
-  }
-
-  console.log(formattedData);
-
+  const formattedData = activityData?.data.sessions.map(
+    (session: Session) => DataFormatter.formatActivityData(session)
+  ) || [];
    /**
    * Custom tooltip component to display weight and calories on hover.
    * @param {CustomTooltipProps} props - The tooltip props object.
@@ -90,7 +77,7 @@ export default function DailyActivity() {
           <span>Calories brûlées (kCal)</span>
         </div>
       </div>
-      {chartData.length > 0 && (
+      {formattedData.length > 0 && (
         <div className="flex w-full justify-center">
           <BarChart
             width={770}
@@ -131,6 +118,11 @@ export default function DailyActivity() {
           </BarChart>
         </div>
       )}
+       {formattedData.length === 0 && !activityData?.error  && ( // Check for error state or empty data
+      <p className="text-center pt-[100px] text-base font-medium text-[#F04438]">
+        Une erreur est survenue lors de la récupération des données. Veuillez réessayer plus tard.
+      </p>
+    )}
     </div>
   );
 }

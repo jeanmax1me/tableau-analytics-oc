@@ -8,6 +8,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
 import { fetchCaloriesCount } from "@/app/api/getFunctions";
+import { DataFormatter } from "@/app/dataFormatter/dataFormatter";
 
 export default function Calories() {
    const {userId} = useContext(UserContext);
@@ -31,19 +32,8 @@ export default function Calories() {
     fetchData();
   }, [userId]); 
 
-  /**
-   * Formats the calorie count to display in thousands with the "kCal" unit.
-   * If the count is less than four digits, it returns the count as is.
-   * @param {number} count - The calorie count to be formatted.
-   * @returns {string} - The formatted calorie count string.
-   */
-  const formatCalorieCount = (count: number) => {
-    if (count.toString().length < 4) return count; 
 
-    return count.toLocaleString("en-US", { minimumFractionDigits: 0 });
-  };
-
-  
+  const formattedCalorieCount = calorieCount !== null ? DataFormatter.formatCalorieCount(calorieCount) + "kCal" : "N/A";
 
   return (
     <div className="customshadow2 flex h-[124px]  w-[258px] items-center rounded-sm  bg-[#FBFBFB] pl-8">
@@ -69,7 +59,7 @@ export default function Calories() {
         </svg>
         <div className="flex-row space-y-0.5">
           <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">
-          {calorieCount !== null ? `${formatCalorieCount(calorieCount)}kCal` : "N/A"}
+          {formattedCalorieCount}
           </h1>
           <h2 className="text-sm font-medium text-[#74798C]">Calories</h2>
         </div>

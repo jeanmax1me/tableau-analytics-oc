@@ -67,7 +67,7 @@ export default function Glucides() {
 
         <div className="flex-row space-y-0.5">
           <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">
-            {glucideCount}g
+          {glucideCount !== null ? glucideCount + "g" : "N/A"}
           </h1>
           <h2 className="text-sm font-medium text-[#74798C]">Glucides</h2>
         </div>

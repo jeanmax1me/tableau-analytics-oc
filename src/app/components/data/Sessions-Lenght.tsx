@@ -108,6 +108,13 @@ export default function SessionsLenght() {
       >
         Durée moyenne des <br /> sessions
       </h3>
+      {!averageSessions && ( // Check if averageSessions is null or undefined (not legit)
+        <p className="text-center pt-[100px] text-base font-medium text-white">
+        Une erreur est survenue lors de la récupération des données. Veuillez réessayer plus tard.
+      </p>
+      )}
+       {averageSessions && (
+        <>
       <div className="absolute bottom-4 left-[14px] flex w-[229px] justify-between text-[12px] uppercase text-white opacity-50">
         <p>L</p>
         <p>M</p>
@@ -142,6 +149,8 @@ export default function SessionsLenght() {
           />
         </LineChart>
       </ResponsiveContainer>
+      </>
+       )}
     </div>
   );
 }

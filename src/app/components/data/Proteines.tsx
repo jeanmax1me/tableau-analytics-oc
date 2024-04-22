@@ -57,7 +57,7 @@ export default function Proteines() {
         </svg>
 
         <div className="flex-row space-y-0.5">
-          <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">{proteineCount}g</h1>
+          <h1 className="pt-[7px] text-xl font-bold text-[#282D30]">   {proteineCount !== null ? proteineCount + "g" : "N/A"}</h1>
           <h2 className="text-sm font-medium text-[#74798C]">Protéines</h2>
         </div>
       </div>

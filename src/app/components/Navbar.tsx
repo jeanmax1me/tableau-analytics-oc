@@ -1,6 +1,14 @@
+/**
+ * Imports the Image component from Next.js for image optimization and ProfilMenu component.
+ */
 import Image from "next/image";
 import ProfilMenu from "./ProfilMenu";
 
+/**
+ * Navbar component that renders the navigation bar for the application.
+ * 
+ * @returns {JSX.Element} - The Navbar component.
+ */
 export default function Navbar() {
   return (
     <div className="customshadow mx-auto flex h-[91px] max-w-[1440px] items-center justify-between bg-[#020203] text-white">

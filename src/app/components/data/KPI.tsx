@@ -1,4 +1,11 @@
 "'use client";
+/**
+ * @description This component displays the user's KPI (Key Performance Indicator) score.
+ * It fetches the user data using the `getUserInfo` function and stores it in the state.
+ * The component renders a pie chart with two slices representing the score and the remaining 
+ * percentage to reach the goal (100%). It also displays the score percentage as a text value
+ * and a label indicating "de votre objectif" (French for "from your goal").
+ */
 import { getUserInfo } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
@@ -8,6 +15,10 @@ export default function Radar() {
   const { userId } = useContext(UserContext);
   const [userData, setUserData] = useState<any>(null);
 
+    /**
+   * Fetches the user's data using the `getUserInfo` function and stores it in the state.
+   * Handles any errors during the fetch process.
+   */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,13 +32,21 @@ export default function Radar() {
     fetchData();
   }, [userId]);
 
+    /**
+   * Extracts the score value from the user data, prioritizing today's score if available.
+   */
   const score = userData?.data?.todayScore || userData?.data?.score;
+  
+  /**
+   * Calculates the score percentage and remaining percentage to reach the goal (100%).
+   */
   const scorePercent = [
     { name: "score", value: score * 100 },
     { name: "remaining", value: 100 - score },
   ];
 
   const COLORS = ["#E60000", "#FBFBFB"];
+  // Color palette for the chart slices
 
   return (
     <div className="relative h-[263px] w-[258px] rounded-md bg-[#FBFBFB]">

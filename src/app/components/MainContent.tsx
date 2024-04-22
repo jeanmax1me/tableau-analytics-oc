@@ -1,4 +1,7 @@
 "use client";
+/**
+ * Imports necessary React dependencies, data components, user data fetching function, UserContext, and RadarFitness component.
+ */
 import { useState, useContext, useEffect } from "react";
 import DailyActivity from "./data/Daily-Activity";
 import SessionsLenght from "./data/Sessions-Lenght";
@@ -11,10 +14,22 @@ import { getUserInfo } from "@/app/api/getFunctions";
 import { UserContext } from "../providers/UseContext";
 import RadarFitness from "./data/RadarFitness";
 
+/**
+ * MainContent component that renders the main content area of the application.
+ * 
+ * This component retrieves user data using the userId from the UserContext and the getUserInfo function.
+ * It utilizes a state variable (userData) to store the fetched user data.
+ * 
+ * @returns {JSX.Element} - The MainContent component.
+ */
 export default function MainContent() {
   const { userId } = useContext(UserContext);
   const [userData, setUserData] = useState<any>(null);
 
+  /**
+   * Fetches user data using the userId and stores it in the state variable.
+   * Re-runs on userId changes.
+   */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,7 +53,7 @@ export default function MainContent() {
           </span>
         </h1>
         <h2 className="pb-[77px] text-[18px] font-normal">
-          Félicitations ! Vous avez explosé vos objectifs hier 👏
+          Félicitations ! Vous avez explosé vos objectifs hier 
         </h2>
       </div>
 

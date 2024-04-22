@@ -1,3 +1,7 @@
+/**
+ * @description This component renders a line chart that displays the user's average session length for each day of the week.
+ *  It fetches data from the `getUserAverageSessions` function and populates the chart with the session length for each day.
+ */
 import {
   LineChart,
   Line,
@@ -10,12 +14,19 @@ import {
 import { getUserAverageSessions } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
-
+/**
+ * @typedef {Object} Session - Represents a session object.
+ * @property {number} day - The day of the week (numerical representation).
+ * @property {number} sessionLength - The length of the session in minutes.
+ */
 interface Session {
   day: number;
   sessionLength: number;
 }
-
+/**
+ * @typedef {Object} CustomTooltipProps - Props for the custom tooltip component.
+ * @property {any[]} payload - Data related to the hovered point on the chart.
+ */
 interface CustomTooltipProps {
   payload?: any;
 }
@@ -24,6 +35,10 @@ export default function SessionsLenght() {
   const { userId } = useContext(UserContext);
   const [averageSessions, setAverageSessions] = useState<any>(null);
 
+  /**
+   * Fetches the user's average session data and stores it in the state.
+   * Handles any errors during the fetch process.
+   */
   useEffect(() => {
     const fetchUserAverageSessions = async () => {
       try {
@@ -44,6 +59,11 @@ export default function SessionsLenght() {
     }));
   }
 
+   /**
+   * @description Renders a custom cursor for the chart.
+   * @param {object} props - Props passed to the component.
+   * @returns {JSX.Element} - A rectangle element representing the custom cursor.
+   */
   const CustomCursor = (props: any) => {
     const { points, width, height } = props;
     const { x, y } = points[0];
@@ -61,6 +81,11 @@ export default function SessionsLenght() {
     );
   };
 
+    /**
+   * @description Renders a custom tooltip component for the chart.
+   * @param {CustomTooltipProps} props - Props for the custom tooltip.
+   * @returns {JSX.Element} - The tooltip content.
+   */
   const CustomTooltip: React.FC<CustomTooltipProps> = ({ payload }) => {
     if (!payload) return null;
     return (

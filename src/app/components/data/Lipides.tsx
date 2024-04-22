@@ -1,4 +1,9 @@
 "use client";
+/**
+ * @description This component displays the user's total lipid intake count.
+ * It fetches the data using the `fetchLipidesCount` function and stores it in the state.
+ * The component renders an icon, the lipid count value, and a label indicating "Lipides".
+ */
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext"; 
 import { fetchLipidesCount } from "@/app/api/getFunctions";
@@ -6,7 +11,10 @@ import { fetchLipidesCount } from "@/app/api/getFunctions";
 export default function Lipides() {
   const { userId } = useContext(UserContext);
   const [lipideCount, setLipideCount] = useState<number | null>(null);
-
+ /**
+   * Fetches the user's lipid intake count and stores it in the state.
+   * Handles any errors during the fetch process.
+   */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,6 +28,9 @@ export default function Lipides() {
     fetchData();
   }, [userId]);
 
+   /**
+   * @returns {JSX.Element} - The JSX element representing the lipid intake component.
+   */
   return (
     <div className="customshadow2 flex h-[124px]  w-[258px] items-center rounded-sm  bg-[#FBFBFB] pl-8">
       <div className="flex space-x-[24px]">

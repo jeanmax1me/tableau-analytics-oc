@@ -1,4 +1,9 @@
 "use client";
+/**
+ * @description This component displays the user's total protein intake count.
+ * It fetches the data using the `fetchProteinesCount` function and stores it in the state.
+ * The component renders an icon, the protein count value, and a label indicating "Protéines".
+ */
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
 import { fetchProteinesCount } from "@/app/api/getFunctions";
@@ -6,7 +11,10 @@ import { fetchProteinesCount } from "@/app/api/getFunctions";
 export default function Proteines() {
   const { userId } = useContext(UserContext);
   const [proteineCount, setProteineCount] = useState<number | null>(null);
-
+ /**
+   * Fetches the user's protein intake count and stores it in the state.
+   * Handles any errors during the fetch process.
+   */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,6 +28,9 @@ export default function Proteines() {
     fetchData();
   }, [userId]);
 
+    /**
+   * @returns {JSX.Element} - The JSX element representing the protein intake component.
+   */
   return (
     <div className="customshadow2 flex h-[124px]  w-[258px] items-center rounded-sm  bg-[#FBFBFB] pl-8">
       <div className="flex space-x-[24px]">

@@ -1,4 +1,10 @@
 "use client";
+/**
+ * @description This component displays the user's total calorie intake count.
+ * It fetches the data using the `fetchCaloriesCount` function and stores it in the state.
+ * The component renders an icon, the formatted calorie count value (in thousands with "kCal" unit),
+ * and a label indicating "Calories". If data is not available, it displays "N/A".
+ */
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
 import { fetchCaloriesCount } from "@/app/api/getFunctions";
@@ -6,7 +12,10 @@ import { fetchCaloriesCount } from "@/app/api/getFunctions";
 export default function Calories() {
    const {userId} = useContext(UserContext);
    const [calorieCount, setCalorieCount] =  useState<number | null>(null);
-
+ /**
+   * Fetches the user's calorie intake count and stores it in the state.
+   * Handles any errors during the fetch process.
+   */
    useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,6 +29,12 @@ export default function Calories() {
     fetchData();
   }, [userId]); 
 
+  /**
+   * Formats the calorie count to display in thousands with the "kCal" unit.
+   * If the count is less than four digits, it returns the count as is.
+   * @param {number} count - The calorie count to be formatted.
+   * @returns {string} - The formatted calorie count string.
+   */
   const formatCalorieCount = (count: number) => {
     if (count.toString().length < 4) return count; 
 

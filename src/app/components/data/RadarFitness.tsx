@@ -1,4 +1,9 @@
 "'use client";
+/**
+ * @description This component renders a radar chart that displays the user's performance data for different categories (cardio, energy, endurance, etc.).
+ * It fetches data from the `getUserPerformance` function and maps the data to a format suitable for the radar chart.
+ * The chart allows visualization of the user's strengths and weaknesses across different performance metrics.
+ */
 import {
   Radar,
   RadarChart,
@@ -11,10 +16,20 @@ import { getUserPerformance } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext"; 
 
+/**
+ * @typedef {Object} Session - Represents a session object within the performance data.
+ * @property {number} value - The performance value for a specific category.
+ * @property {number} kind - A numerical identifier for the performance category.
+ */
 interface Session {
   value: number;
   kind: number
 }
+/**
+ * @typedef {Object} KindMap - A map to translate numerical category identifiers to human-readable labels.
+ * @property {string} [key: number] - The key represents the numerical identifier for the category.
+ * @property {string} value - The value represents the human-readable label for the category.
+ */
 
 type KindMap = {
   [key: number]: string; 
@@ -24,6 +39,10 @@ export default function RadarFitness() {
 const { userId } = useContext(UserContext);
   const [userPerformance, setUserPerformance] = useState<any>(null);
 
+  /**
+   * Fetches the user's performance data and stores it in the state.
+   * Handles any errors during the fetch process.
+   */
   useEffect(() => {
     const fetchUserPerformance = async () => {
       try {
@@ -46,6 +65,9 @@ const { userId } = useContext(UserContext);
       }));
     }
 
+      /**
+   * A map to translate numerical category identifiers to human-readable labels for the chart.
+   */
     const kindMap: KindMap = {
       1: "Cardio",
       2: "Energie",
@@ -55,13 +77,18 @@ const { userId } = useContext(UserContext);
       6: "Intensité",
     };
 
+     /**
+   * Transforms the data to use human-readable category labels and ensures the desired order for the chart.
+   */
     const newData = chartData.map(({ value, kind }) => ({ value, kind: kindMap[kind] }));
 
     const desiredOrder = ['Intensité', 'Vitesse', 'Force', 'Endurance', 'Energie', 'Cardio'];
     const sortedData = desiredOrder.map((kind) =>
       newData.filter((obj) => obj.kind === kind)[0]
     );
-
+ /**
+   * @returns {JSX.Element} - The JSX element representing the radar chart component.
+   */
 
   return (
     <div className="h-[263px] w-[258px] bg-[#FBFBFB] customshadow2 rounded-sm;

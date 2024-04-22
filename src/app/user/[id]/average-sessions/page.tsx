@@ -1,4 +1,9 @@
 "use client";
+/**
+ * @description This page component renders the user's session length data visualization.
+ * It retrieves the user ID from the URL parameter and stores it in the context.
+ * The component then displays the `SessionsLenght` component which presumably visualizes the length of the user's sessions.
+ */
 import React, { useContext, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
 import { useParams } from "next/navigation";
@@ -10,9 +15,12 @@ const Index = () => {
   const { id } = useParams<{ id: string }>();
   const userIdNumber = parseInt(id);
 
+  /**
+   * Extracts the user ID from the URL parameter and stores it in the context.
+   */
   useEffect(() => {
     setUserId(userIdNumber);
-  }, [userIdNumber, setUserId]);
+  }, [userIdNumber, setUserId]); // Dependency array ensures effect runs on ID change
 
 
 

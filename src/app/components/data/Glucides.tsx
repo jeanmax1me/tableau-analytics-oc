@@ -1,4 +1,9 @@
 "use client";
+/**
+ * @description This component displays the user's total glucide intake count.
+ * It fetches the data using the `fetchGlucidesCount` function and stores it in the state.
+ * The component renders an icon, the glucide count value, and a label indicating "Glucides".
+ */
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
 import { fetchGlucidesCount } from "@/app/api/getFunctions";
@@ -7,6 +12,10 @@ export default function Glucides() {
   const { userId } = useContext(UserContext);
   const [glucideCount, setGlucideCount] = useState<number | null>(null);
 
+    /**
+   * Fetches the user's glucide intake count and stores it in the state.
+   * Handles any errors during the fetch process.
+   */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,6 +29,9 @@ export default function Glucides() {
     fetchData();
   }, [userId]);
 
+    /**
+   * @returns {JSX.Element} - The JSX element representing the glucide intake component.
+   */
   return (
     <div className="customshadow2 flex h-[124px] w-[258px] items-center rounded-sm bg-[#FBFBFB] pl-8">
       <div className="flex space-x-[24px]">

@@ -1,15 +1,22 @@
 "use client";
+/**
+ * @description This component displays the user's daily activity data in a bar chart.
+ * It fetches the user activity data using the `getUserActivity` function and stores it in the state.
+ * The chart displays bars for weight (kg) and burned calories (kCal) for each day. 
+ * It uses a custom tooltip component to display the weight and calories values on hover.
+ */
 import { getUserActivity } from "@/app/api/getFunctions";
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/app/providers/UseContext";
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
-
+// Interface for a session data point
 interface Session {
   day: string;
   kilogram: number;
   calories: number;
 }
 
+// Interface for custom tooltip props
 interface CustomTooltipProps {
   payload?: any;
 }
@@ -18,6 +25,11 @@ export default function DailyActivity() {
   const { userId } = useContext(UserContext);
   const [activityData, setActivityData] = useState<any>(null);
 
+  
+  /**
+   * Fetches the user's activity data using the `getUserActivity` function and stores it in the state.
+   * Handles any errors during the fetch process.
+   */
   useEffect(() => {
     const fetchUserActivity = async () => {
       try {
@@ -31,6 +43,7 @@ export default function DailyActivity() {
     fetchUserActivity();
   }, [userId]);
 
+   // Prepare chart data by extracting day, weight, and calories from sessions
   let chartData: { day: string; kilogram: number; calories: number }[] = [];
   let formattedData: { day: string; kilogram: number; calories: number }[] = [];
   if (activityData) {
@@ -41,12 +54,17 @@ export default function DailyActivity() {
     }));
     formattedData = chartData.map((data) => ({
       ...data,
-      day: data.day.substr(9),
+      day: data.day.substr(9),  // Format the date string (assuming format YYYY-MM-DD)
     }));
   }
 
   console.log(formattedData);
 
+   /**
+   * Custom tooltip component to display weight and calories on hover.
+   * @param {CustomTooltipProps} props - The tooltip props object.
+   * @returns {JSX.Element} - The JSX element representing the custom tooltip.
+   */
   const CustomTooltip: React.FC<CustomTooltipProps> = ({ payload }) => {
     if (payload && payload.length) {
       return (

@@ -1,5 +1,10 @@
 import React from "react";
-
+/**
+ * @constructor LeftBanner
+ * @description This component renders the left banner on the webpage.
+ *              The banner has a black background with white text and icons,
+ *              and displays a copyright message at the bottom.
+ */
 export default function LeftBanner() {
   return (
     <div className="relative h-[calc(100vh-91px)] w-[117px] flex-row items-center justify-center bg-[#020203] text-white">
